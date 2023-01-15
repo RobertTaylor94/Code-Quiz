@@ -105,3 +105,13 @@ sumbitButton.addEventListener("click", function(event) {
     resetQuiz()
 });
 
+choices.addEventListener("click", function(event) {
+    target = event.target;
+   if (target.tagName == "BUTTON") {
+    if (target.textContent == questionsArray[currentQuestion].correct) {
+        console.log("CORRECT")
+    } else {
+        console.log("WRONG")
+    }
+   }
+});
