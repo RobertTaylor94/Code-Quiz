@@ -1,4 +1,5 @@
 var playerScore = 0;
+var currentQuestion = 0;
 
 var finalScore = document.querySelector("#final-score");
 var questions = document.querySelector("#questions");
@@ -22,10 +23,11 @@ function startQuiz() {
     startScreen.className = "hide";
     questions.className = "";
     timer();
+    renderQuestion(currentQuestion)
 };
 
 function timer() {
-    var timeLeft = 60;
+    var timeLeft = 5;
 
     var timeInterval = setInterval(function() {
       if (timeLeft > 0) {
@@ -54,7 +56,7 @@ function stopQuiz() {
 
 function saveScores() {
     //saves player score and initials to local storage
-    localStorage.setItem(`${initials}`, playerScore)
+    localStorage.setItem(`${initials}`, playerScore);
 };
 
 function checkAnswer() {
@@ -64,12 +66,22 @@ function checkAnswer() {
     */
 };
 
-function renderQuestion() {
+function renderQuestion(index) {
     /*
         h2 question
         div id='choices'
         ol with a button for each answer option
     */
+   questionTitle.textContent = questionsArray[index].question
+   var ol = document.createElement("ol")
+   choices.appendChild(ol)
+   for (i=0; i<3; i++) {
+    var option = document.createElement("li")
+    var choice = document.createElement("button")
+    choice.textContent = questionsArray[index].one
+    option.appendChild(choice)
+    ol.appendChild(option)
+   }
 };
 
 function resetQuiz() {
@@ -78,6 +90,7 @@ function resetQuiz() {
     */
    endScreen.className = "hide";
    startScreen.className = "start";
+   time.textContent = "60";
 };
 
 //MARK:- Event Listeners
