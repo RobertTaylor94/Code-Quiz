@@ -91,6 +91,8 @@ function resetQuiz() {
    endScreen.className = "hide";
    startScreen.className = "start";
    time.textContent = "60";
+   questionTitle.textContent = ""
+   choices.textContent = ""
 };
 
 //MARK:- Event Listeners
