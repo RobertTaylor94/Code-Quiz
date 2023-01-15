@@ -1,5 +1,6 @@
 var playerScore = 0;
 var currentQuestion = 0;
+var timeLeft = 60;
 
 var finalScore = document.querySelector("#final-score");
 var questions = document.querySelector("#questions");
@@ -27,8 +28,6 @@ function startQuiz() {
 };
 
 function timer() {
-    var timeLeft = 5;
-
     var timeInterval = setInterval(function() {
       if (timeLeft > 0) {
         time.textContent = timeLeft;
@@ -59,11 +58,26 @@ function saveScores() {
     localStorage.setItem(`${initials}`, playerScore);
 };
 
-function checkAnswer() {
+function checkAnswer(target) {
     /* on answer given checks if correct
         if right, adds point to the total score and displays next question
         if wrong, subtracts time from the time remaining
     */
+   if (currentQuestion < questionsArray.length-1) {
+    if (target.textContent == questionsArray[currentQuestion].correct) {
+        console.log("CORRECT")
+        playerScore++;
+        currentQuestion++;
+        renderQuestion(currentQuestion);
+    } else {
+        console.log("WRONG")
+        timeLeft -= 10;
+    }
+   } else {
+    playerScore++;
+    stopQuiz();
+   }
+
 };
 
 function renderQuestion(index) {
@@ -72,15 +86,17 @@ function renderQuestion(index) {
         div id='choices'
         ol with a button for each answer option
     */
-   questionTitle.textContent = questionsArray[index].question
-   var ol = document.createElement("ol");
-   choices.appendChild(ol);
-   for (i=0; i<3; i++) {
-    var option = document.createElement("li");
-    var choice = document.createElement("button");
-    choice.textContent = questionsArray[index].options[i];
-    option.appendChild(choice);
-    ol.appendChild(option);
+    questionTitle.textContent = "";
+    choices.textContent = "";
+    questionTitle.textContent = questionsArray[index].question
+    var ol = document.createElement("ol");
+    choices.appendChild(ol);
+    for (i=0; i<3; i++) {
+        var option = document.createElement("li");
+        var choice = document.createElement("button");
+        choice.textContent = questionsArray[index].options[i];
+        option.appendChild(choice);
+        ol.appendChild(option);
    }
 };
 
@@ -101,17 +117,13 @@ startButton.addEventListener("click", function(event) {
 });
 
 sumbitButton.addEventListener("click", function(event) {
-    saveScores()
-    resetQuiz()
+    saveScores();
+    resetQuiz();
 });
 
 choices.addEventListener("click", function(event) {
     target = event.target;
    if (target.tagName == "BUTTON") {
-    if (target.textContent == questionsArray[currentQuestion].correct) {
-        console.log("CORRECT")
-    } else {
-        console.log("WRONG")
-    }
+    checkAnswer(target);
    }
 });
