@@ -73,14 +73,14 @@ function renderQuestion(index) {
         ol with a button for each answer option
     */
    questionTitle.textContent = questionsArray[index].question
-   var ol = document.createElement("ol")
-   choices.appendChild(ol)
+   var ol = document.createElement("ol");
+   choices.appendChild(ol);
    for (i=0; i<3; i++) {
-    var option = document.createElement("li")
-    var choice = document.createElement("button")
-    choice.textContent = questionsArray[index].one
-    option.appendChild(choice)
-    ol.appendChild(option)
+    var option = document.createElement("li");
+    var choice = document.createElement("button");
+    choice.textContent = questionsArray[index].options[i];
+    option.appendChild(choice);
+    ol.appendChild(option);
    }
 };
 
@@ -91,8 +91,8 @@ function resetQuiz() {
    endScreen.className = "hide";
    startScreen.className = "start";
    time.textContent = "60";
-   questionTitle.textContent = ""
-   choices.textContent = ""
+   questionTitle.textContent = "";
+   choices.textContent = "";
 };
 
 //MARK:- Event Listeners
@@ -104,3 +104,4 @@ sumbitButton.addEventListener("click", function(event) {
     saveScores()
     resetQuiz()
 });
+
