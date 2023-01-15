@@ -55,7 +55,8 @@ function stopQuiz() {
 
 function saveScores() {
     //saves player score and initials to local storage
-    localStorage.setItem(`${initials}`, playerScore);
+    var newPlayer = initials.value
+    localStorage.setItem(newPlayer, playerScore);
 };
 
 function checkAnswer(target) {
@@ -65,12 +66,10 @@ function checkAnswer(target) {
     */
    if (currentQuestion < questionsArray.length-1) {
     if (target.textContent == questionsArray[currentQuestion].correct) {
-        console.log("CORRECT")
         playerScore++;
         currentQuestion++;
         renderQuestion(currentQuestion);
     } else {
-        console.log("WRONG")
         timeLeft -= 10;
     }
    } else {
@@ -104,6 +103,9 @@ function resetQuiz() {
     /* 
         Reset the page to show the start screen
     */
+   playerScore = 0
+   currentQuestion = 0
+   timeLeft = 60
    endScreen.className = "hide";
    startScreen.className = "start";
    time.textContent = "60";
