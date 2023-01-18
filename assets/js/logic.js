@@ -11,8 +11,8 @@ var startScreen = document.querySelector("#start-screen");
 var feedback = document.querySelector("#feedback");
 var startButton = document.querySelector("#start");
 var sumbitButton = document.querySelector("#submit");
-var time = document.querySelector("#time")
-var initials = document.querySelector("#initials")
+var time = document.querySelector("#time");
+var initials = document.querySelector("#initials");
 
 //MARK: - Functions
 function startQuiz() {
@@ -24,7 +24,7 @@ function startQuiz() {
     startScreen.className = "hide";
     questions.className = "";
     timer();
-    renderQuestion(currentQuestion)
+    renderQuestion(currentQuestion);
 };
 
 function timer() {
@@ -34,10 +34,10 @@ function timer() {
         timeLeft--;
       } else {
         clearInterval(timeInterval);
-        stopQuiz()
+        stopQuiz();
       };
     }, 1000);
-}
+};
 
 function stopQuiz() {
     /* on timer end or after last question
@@ -50,13 +50,19 @@ function stopQuiz() {
     */
         questions.className = "hide";
         endScreen.className = "";
-        finalScore.textContent = playerScore
+        finalScore.textContent = playerScore;
 };
 
 function saveScores() {
-    //saves player score and initials to local storage
-    var newPlayer = initials.value
-    localStorage.setItem(newPlayer, playerScore);
+    //get current array of scores from local storage
+    var newScore = [{
+        player: initials.value,
+        score: playerScore
+    }];
+    var savedScores = JSON.parse(localStorage.getItem("scores"));
+    var joined = newScore.concat(savedScores);
+
+    localStorage.setItem("scores", JSON.stringify(joined))
 };
 
 function checkAnswer(target) {
