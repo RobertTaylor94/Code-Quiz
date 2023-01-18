@@ -1,7 +1,7 @@
 const questionsArray = [
     {
         "question": "What does CSS stand for?",
-        "options": ["Cascading Style Sheet", "Cascading Shit Sheet", "Colourful Stylish Sheets"],
+        "options": ["Cascading Style Sheet", "Computed Style Sheet", "Colourful Stylish Sheets"],
         "correct": "Cascading Style Sheet"
     },
     {
