@@ -10,8 +10,6 @@ function clearScores() {
 function getScores() {
     //get scores from storage to display with initals
     var scores = JSON.parse(localStorage.getItem("scores"));
-    // scores.sort((a, b) => a.value - b.value);
-
     if (scores != null) {
         for (i = 0; i < scores.length; i++) {
             renderScores(scores[i]);
