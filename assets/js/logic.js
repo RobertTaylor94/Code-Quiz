@@ -64,12 +64,11 @@ function saveScores() {
     var savedScores = JSON.parse(localStorage.getItem("scores"));
     //add latest score to the previously saved array of scores
     if (savedScores != null) {
+        //checks to see if the localstorage is empty before trying to access it
         var joined = newScore.concat(savedScores);
         localStorage.setItem("scores", JSON.stringify(joined));
-        console.log("not null")
     } else {
         localStorage.setItem("scores", JSON.stringify(newScore));
-        console.log("null")
     }
 
 };
@@ -87,12 +86,19 @@ function checkAnswer(target) {
     } else {
         timeLeft -= 10;
     }
-   } else {
-    playerScore++;
-    stopQuiz();
+   } else if (currentQuestion = questionsArray.length-1) {
+    if (target.textContent == questionsArray[currentQuestion].correct) {
+        playerScore++;
+        currentQuestion++;
+        stopQuiz()
+    } else {
+        timeLeft -= 10;
+    }
    }
 
 };
+
+
 
 function renderQuestion(index) {
     /*
