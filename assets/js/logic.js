@@ -13,6 +13,7 @@ var startButton = document.querySelector("#start");
 var sumbitButton = document.querySelector("#submit");
 var time = document.querySelector("#time");
 var initials = document.querySelector("#initials");
+var timeInterval;
 
 //MARK: - Functions
 function startQuiz() {
@@ -28,12 +29,11 @@ function startQuiz() {
 };
 
 function timer() {
-    var timeInterval = setInterval(function() {
+    timeInterval = setInterval(function() {
       if (timeLeft > 0) {
         time.textContent = timeLeft;
         timeLeft--;
       } else {
-        clearInterval(timeInterval);
         stopQuiz();
       };
     }, 1000);
@@ -51,6 +51,7 @@ function stopQuiz() {
         questions.className = "hide";
         endScreen.className = "";
         finalScore.textContent = playerScore;
+        clearInterval(timeInterval);
 };
 
 function saveScores() {
