@@ -9,18 +9,18 @@ function clearScores() {
 function getScores() {
     //get scores from storage to display with initals
     var scores = JSON.parse(localStorage.getItem("scores"));
+    // scores.sort((a, b) => a.value - b.value);
     for (i = 0; i < scores.length; i++) {
-        // renderScores(scores[i]);
+        renderScores(scores[i]);
     };
 };
 
 function renderScores(object) {
     var newLi = document.createElement("li");
-    newLi.textContent(`${object.player}: ${object.score}`);
+    newLi.textContent = `${object.player}: ${object.score}`;
     highscores.append(newLi);
 };
 
-console.log("hello");
 getScores();
 
 clearButton.addEventListener("click", clearScores);
