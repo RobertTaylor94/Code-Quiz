@@ -55,15 +55,23 @@ function stopQuiz() {
 };
 
 function saveScores() {
-    //get current array of scores from local storage
+    //create new object to append to scores array
     var newScore = [{
         player: initials.value,
         score: playerScore
     }];
+        //get current array of scores from local storage
     var savedScores = JSON.parse(localStorage.getItem("scores"));
-    var joined = newScore.concat(savedScores);
+    //add latest score to the previously saved array of scores
+    if (savedScores != null) {
+        var joined = newScore.concat(savedScores);
+        localStorage.setItem("scores", JSON.stringify(joined));
+        console.log("not null")
+    } else {
+        localStorage.setItem("scores", JSON.stringify(newScore));
+        console.log("null")
+    }
 
-    localStorage.setItem("scores", JSON.stringify(joined))
 };
 
 function checkAnswer(target) {
